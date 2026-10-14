@@ -1,0 +1,15 @@
+{
+  "name": "encuesta-career-services",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Encuesta interactiva Career Services - Cornerstone International Group Ecuador",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.8.1",
+    "express": "^4.21.2"
+  }
+}

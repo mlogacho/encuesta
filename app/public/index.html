@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Encuesta de Experiencia · Programa de Transición de Carrera</title>
+  <meta name="description" content="Encuesta diagnóstica y de valoración del Programa de Transición de Carrera · Cornerstone International Group Ecuador">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <div class="ambient-glow"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-badge">
+      <div class="logo-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <polyline points="16 11 18 13 22 9"></polyline>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <h1>Career Services</h1>
+        <p>Cornerstone International Group Ecuador</p>
+      </div>
+    </div>
+    <div>
+      <button class="admin-link-btn" id="openAdminBtn" onclick="admin.openModal()">Panel Admin</button>
+    </div>
+  </header>
+
+  <!-- Main Survey Container -->
+  <main>
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-info">
+        <span id="stepCounterText">Paso 1 de 7</span>
+        <span id="progressPercentText">14% completado</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
+
+    <!-- PASO 0: Bienvenida -->
+    <div class="card-step" id="step-0">
+      <span class="step-badge">Bienvenida</span>
+      <h2 class="question-title">Encuesta de experiencia · Transición de Carrera</h2>
+      <p class="question-desc">
+        Asumí el acompañamiento de tu programa de transición de carrera y quiero asegurarme de que responda a lo que hoy necesitas. 
+        Tus respuestas son confidenciales y me ayudarán a ajustar el proceso. Te tomará entre 5 y 7 minutos.
+      </p>
+      <div style="background: rgba(255,255,255,0.03); border-left: 3px solid var(--accent); padding: 1rem; border-radius: 8px; margin-bottom: 2rem;">
+        <p style="font-size: 0.9rem; color: var(--text-muted); font-style: italic;">
+          "Tu opinión es fundamental para adaptar cada sesión a tus retos profesionales."
+        </p>
+        <p style="font-size: 0.85rem; font-weight: 600; margin-top: 0.4rem; color: var(--text-main);">
+          — María Dolores Tito · Cornerstone International Group
+        </p>
+      </div>
+      <div class="nav-actions" style="justify-content: flex-end;">
+        <button class="btn btn-primary" onclick="survey.nextStep()">
+          Comenzar Encuesta
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- PASO 1: Momento Actual -->
+    <div class="card-step" id="step-1" style="display: none;">
+      <span class="step-badge">1. Tu momento actual</span>
+      <h2 class="question-title">¿Cuánto tiempo llevas en el programa?</h2>
+      <p class="question-desc">Selecciona la opción que mejor describa tu permanencia.</p>
+      
+      <div class="options-grid" id="tiempoProgramaOptions">
+        <div class="option-card" onclick="survey.selectRadio('tiempo_programa', 'Menos de 1 mes', this)">
+          <span class="option-key">A</span>
+          <span class="option-label">Menos de 1 mes</span>
+        </div>
+        <div class="option-card" onclick="survey.selectRadio('tiempo_programa', 'Entre 1 y 3 meses', this)">
+          <span class="option-key">B</span>
+          <span class="option-label">Entre 1 y 3 meses</span>
+        </div>
+        <div class="option-card" onclick="survey.selectRadio('tiempo_programa', 'Entre 3 y 6 meses', this)">
+          <span class="option-key">C</span>
+          <span class="option-label">Entre 3 y 6 meses</span>
+        </div>
+        <div class="option-card" onclick="survey.selectRadio('tiempo_programa', 'Más de 6 meses', this)">
+          <span class="option-key">D</span>
+          <span class="option-label">Más de 6 meses</span>
+        </div>
+      </div>
+
+      <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem;">¿En qué etapa estás hoy?</h3>
+      <div class="options-grid" id="etapaActualOptions">
+        <div class="option-card" onclick="survey.selectRadio('etapa_actual', 'Definiendo mi objetivo profesional', this)">
+          <span class="option-key">A</span>
+          <span class="option-label">Definiendo mi objetivo profesional</span>
+        </div>
+        <div class="option-card" onclick="survey.selectRadio('etapa_actual', 'Preparando mis herramientas (CV, LinkedIn)', this)">
+          <span class="option-key">B</span>
+          <span class="option-label">Preparando mis herramientas (CV, LinkedIn)</span>
+        </div>
+        <div class="option-card" onclick="survey.selectRadio('etapa_actual', 'Buscando activamente y postulando', this)">
+          <span class="option-key">C</span>
+          <span class="option-label">Buscando activamente y postulando</span>
+        </div>
+        <div class="option-card" onclick="survey.selectRadio('etapa_actual', 'En procesos de entrevista', this)">
+          <span class="option-key">D</span>
+          <span class="option-label">En procesos de entrevista</span>
+        </div>
+        <div class="option-card" onclick="survey.selectRadio('etapa_actual', 'Ya me recoloqué o estoy emprendiendo', this)">
+          <span class="option-key">E</span>
+          <span class="option-label">Ya me recoloqué o estoy emprendiendo</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn btn-secondary" onclick="survey.prevStep()">Atrás</button>
+        <button class="btn btn-primary" onclick="survey.validateAndNext(1)">Continuar</button>
+      </div>
+    </div>
+
+    <!-- PASO 2: Valoración del programa (Likert 1-5) -->
+    <div class="card-step" id="step-2" style="display: none;">
+      <span class="step-badge">2. Valoración del programa</span>
+      <h2 class="question-title">Califica cada aspecto del programa</h2>
+      <p class="question-desc">Escala del 1 (Muy insatisfecho) al 5 (Muy satisfecho).</p>
+
+      <div id="likertQuestionsContainer">
+        <!-- Generado dinámicamente -->
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn btn-secondary" onclick="survey.prevStep()">Atrás</button>
+        <button class="btn btn-primary" onclick="survey.validateAndNext(2)">Continuar</button>
+      </div>
+    </div>
+
+    <!-- PASO 3: Tus expectativas -->
+    <div class="card-step" id="step-3" style="display: none;">
+      <span class="step-badge">3. Tus expectativas</span>
+      <h2 class="question-title">Al iniciar el programa, ¿qué esperabas lograr?</h2>
+      <p class="question-desc">Puedes marcar varias opciones que correspondan a tus objetivos.</p>
+
+      <div class="options-grid" id="expectativasGrid">
+        <!-- Opciones de checkbox -->
+      </div>
+
+      <div style="margin-bottom: 2rem;">
+        <label class="field-label">Otra expectativa (opcional):</label>
+        <input type="text" class="custom-input" id="expectativas_otro" placeholder="Especifica si tenías otra expectativa...">
+      </div>
+
+      <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem;">
+        ¿En qué medida el programa ha cumplido esas expectativas hasta hoy?
+      </h3>
+      <p class="question-desc" style="margin-bottom: 1rem;">Califica del 1 (Nada) al 5 (Totalmente).</p>
+      
+      <div class="likert-scale" style="max-width: 400px; margin-bottom: 0.5rem;" id="cumplimientoScale">
+        <button class="scale-btn" onclick="survey.selectScale('cumplimiento_expectativas', 1, this)">1</button>
+        <button class="scale-btn" onclick="survey.selectScale('cumplimiento_expectativas', 2, this)">2</button>
+        <button class="scale-btn" onclick="survey.selectScale('cumplimiento_expectativas', 3, this)">3</button>
+        <button class="scale-btn" onclick="survey.selectScale('cumplimiento_expectativas', 4, this)">4</button>
+        <button class="scale-btn" onclick="survey.selectScale('cumplimiento_expectativas', 5, this)">5</button>
+      </div>
+      <div class="scale-legend" style="max-width: 400px; margin-bottom: 2rem;">
+        <span>1: Nada</span>
+        <span>5: Totalmente</span>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn btn-secondary" onclick="survey.prevStep()">Atrás</button>
+        <button class="btn btn-primary" onclick="survey.validateAndNext(3)">Continuar</button>
+      </div>
+    </div>
+
+    <!-- PASO 4: Prioridades para la siguiente etapa -->
+    <div class="card-step" id="step-4" style="display: none;">
+      <span class="step-badge">4. Prioridades para la siguiente etapa</span>
+      <h2 class="question-title">Elige los 3 temas que más te ayudarían ahora</h2>
+      <p class="question-desc">
+        Selecciona <strong style="color: var(--accent);">exactamente 3 opciones</strong> clave para tus siguientes sesiones. 
+        (<span id="prioridadesCountBadge">0 de 3 seleccionados</span>)
+      </p>
+
+      <div class="options-grid" id="prioridadesGrid">
+        <!-- Opciones generadas -->
+      </div>
+
+      <h3 style="font-size: 1.15rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.5rem;">¿Qué formato prefieres?</h3>
+      <p class="question-desc" style="margin-bottom: 1rem;">Puedes marcar varias opciones.</p>
+      <div class="options-grid" id="formatoGrid">
+        <!-- Opciones formato -->
+      </div>
+
+      <h3 style="font-size: 1.15rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.5rem;">¿Con qué frecuencia te gustaría tener sesiones?</h3>
+      <div class="options-grid" id="frecuenciaGrid">
+        <div class="option-card" onclick="survey.selectRadio('frecuencia_sesiones', 'Semanal', this)">
+          <span class="option-key">A</span>
+          <span class="option-label">Semanal</span>
+        </div>
+        <div class="option-card" onclick="survey.selectRadio('frecuencia_sesiones', 'Quincenal', this)">
+          <span class="option-key">B</span>
+          <span class="option-label">Quincenal</span>
+        </div>
+        <div class="option-card" onclick="survey.selectRadio('frecuencia_sesiones', 'Mensual', this)">
+          <span class="option-key">C</span>
+          <span class="option-label">Mensual</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn btn-secondary" onclick="survey.prevStep()">Atrás</button>
+        <button class="btn btn-primary" onclick="survey.validateAndNext(4)">Continuar</button>
+      </div>
+    </div>
+
+    <!-- PASO 5: Recomendación y mejora (NPS y abiertas) -->
+    <div class="card-step" id="step-5" style="display: none;">
+      <span class="step-badge">5. Recomendación y mejora</span>
+      <h2 class="question-title">Del 0 al 10, ¿qué tan probable es que recomiendes este programa a un colega?</h2>
+      <p class="question-desc">0 es nada probable y 10 es sumamente probable.</p>
+
+      <div class="nps-grid" id="npsGrid">
+        <!-- 0 al 10 -->
+      </div>
+      <div class="scale-legend" style="margin-bottom: 2rem;">
+        <span>0 = Nada probable</span>
+        <span>10 = Muy probable</span>
+      </div>
+
+      <div>
+        <label class="field-label">¿Qué deberíamos mantener del programa?</label>
+        <textarea class="custom-textarea" id="mantener_programa" placeholder="Lo que más valoras y no debe cambiar..."></textarea>
+      </div>
+
+      <div>
+        <label class="field-label">¿Qué deberíamos mejorar?</label>
+        <textarea class="custom-textarea" id="mejorar_programa" placeholder="Oportunidades de mejora, sugerencias..."></textarea>
+      </div>
+
+      <div>
+        <label class="field-label">¿Qué te ayudaría más en las próximas 4 semanas?</label>
+        <textarea class="custom-textarea" id="ayuda_proximas_semanas" placeholder="Temas específicos, contactos, simulaciones..."></textarea>
+      </div>
+
+      <div style="background: rgba(255,255,255,0.02); border: 1px dashed var(--dark-border); padding: 1.25rem; border-radius: 12px; margin-top: 1rem;">
+        <label class="field-label">Tu nombre (opcional):</label>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+          Si lo compartes, podré darte seguimiento personalizado. Tus respuestas siguen siendo confidenciales.
+        </p>
+        <input type="text" class="custom-input" id="nombre_opcional" placeholder="Ej. Juan Pérez">
+      </div>
+
+      <div class="nav-actions">
+        <button class="btn btn-secondary" onclick="survey.prevStep()">Atrás</button>
+        <button class="btn btn-primary" id="btnSubmitSurvey" onclick="survey.submit()">
+          Enviar Encuesta
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- PASO FINAL: Agradecimiento -->
+    <div class="card-step" id="step-final" style="display: none;">
+      <div class="success-screen">
+        <div class="success-icon">✓</div>
+        <h2 class="question-title" style="margin-bottom: 1rem;">¡Gracias por tus respuestas!</h2>
+        <p class="question-desc" style="max-width: 500px; margin: 0 auto 2rem; font-size: 1.05rem;">
+          Tu opinión es clave para que el programa responda a lo que necesitas. Revisaremos los resultados en nuestra próxima sesión.
+        </p>
+        <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid var(--dark-border); padding: 1.25rem; border-radius: 12px; display: inline-block;">
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Cornerstone International Group Ecuador · Career Services
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- MODAL ADMIN -->
+  <div class="admin-modal" id="adminModal">
+    <div class="admin-window">
+      <div class="admin-header">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <h3 style="font-size: 1.1rem; font-weight: 700;">Panel de Administración · Encuestas</h3>
+          <span style="font-size: 0.75rem; background: rgba(56, 189, 248, 0.15); color: var(--accent); padding: 0.2rem 0.5rem; border-radius: 6px;">Privado</span>
+        </div>
+        <button onclick="admin.closeModal()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; line-height: 1;">&times;</button>
+      </div>
+
+      <div class="admin-body">
+        <!-- Login Form -->
+        <div id="adminLoginForm" style="max-width: 360px; margin: 3rem auto; text-align: center;">
+          <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Acceso Administrativo</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Ingresa la clave maestra para consultar y descargar las encuestas.</p>
+          <input type="password" id="adminPasswordInput" class="custom-input" placeholder="Contraseña de administrador" style="margin-bottom: 1rem;">
+          <button class="btn btn-primary" style="width: 100%;" onclick="admin.login()">Ingresar</button>
+          <p id="adminLoginError" style="color: #f87171; font-size: 0.85rem; margin-top: 0.75rem; display: none;">Contraseña incorrecta</p>
+        </div>
+
+        <!-- Dashboard Content -->
+        <div id="adminDashboardContent" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h4 style="font-size: 1.25rem; font-weight: 700;">Executive Analytics Dashboard</h4>
+              <p style="font-size: 0.85rem; color: var(--text-muted);">Métricas cuantitativas, NPS y diagnósticos en tiempo real</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem;">
+              <button class="btn btn-secondary" onclick="admin.fetchRespuestas()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                Actualizar
+              </button>
+              <button class="btn btn-primary" onclick="admin.exportCsv()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Exportar Excel (CSV)
+              </button>
+            </div>
+          </div>
+
+          <!-- KPI Summary Cards -->
+          <div class="stats-grid">
+            <div class="stat-card">
+              <span class="stat-title">Total de Evaluaciones</span>
+              <div class="stat-value" id="statTotalEncuestas">0</div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Muestra activa analizada</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-title">Net Promoter Score (NPS)</span>
+              <div class="stat-value" id="statNpsScore" style="color: #10b981;">0</div>
+              <span id="statNpsBreakdown" style="font-size: 0.75rem; color: var(--text-muted);">Promotores: 0% | Detractores: 0%</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-title">Cumplimiento Expectativas</span>
+              <div class="stat-value" id="statCumplimiento">0 / 5</div>
+              <span style="font-size: 0.75rem; color: var(--text-muted);">Calificación promedio</span>
+            </div>
+          </div>
+
+          <!-- Row 1: NPS Breakdown Gauge + Radar Valoración -->
+          <div class="charts-grid-2">
+            <div class="chart-box">
+              <div class="chart-header">
+                <div>
+                  <h5 class="chart-title">Desglose NPS & Fidelización</h5>
+                  <p class="chart-subtitle">Promotores (9-10), Pasivos (7-8), Detractores (0-6)</p>
+                </div>
+              </div>
+              <div style="height: 260px; position: relative;">
+                <canvas id="chartNpsBreakdown"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-box">
+              <div class="chart-header">
+                <div>
+                  <h5 class="chart-title">Matriz de Valoración del Programa (Radar)</h5>
+                  <p class="chart-subtitle">Promedio de dimensiones del 1 al 5</p>
+                </div>
+              </div>
+              <div style="height: 260px; position: relative;">
+                <canvas id="chartRadarValoracion"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 2: Top Prioridades (Horizontal Bar) + Distribución Etapas (Donut) -->
+          <div class="charts-grid-2" style="margin-top: 1.25rem;">
+            <div class="chart-box">
+              <div class="chart-header">
+                <div>
+                  <h5 class="chart-title">Top 3 Prioridades Seleccionadas</h5>
+                  <p class="chart-subtitle">Frecuencia de temas demandados para las próximas sesiones</p>
+                </div>
+              </div>
+              <div style="height: 260px; position: relative;">
+                <canvas id="chartPrioridades"></canvas>
+              </div>
+            </div>
+
+            <div class="chart-box">
+              <div class="chart-header">
+                <div>
+                  <h5 class="chart-title">Distribución por Etapa Profesional</h5>
+                  <p class="chart-subtitle">Segmentación del momento actual de los participantes</p>
+                </div>
+              </div>
+              <div style="height: 260px; position: relative;">
+                <canvas id="chartEtapas"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3: Expectativas vs Cumplimiento -->
+          <div class="charts-grid-1" style="margin-top: 1.25rem;">
+            <div class="chart-box">
+              <div class="chart-header">
+                <div>
+                  <h5 class="chart-title">Expectativas Iniciales Declaradas</h5>
+                  <p class="chart-subtitle">Objetivos que los clientes esperaban resolver al inicio</p>
+                </div>
+              </div>
+              <div style="height: 240px; position: relative;">
+                <canvas id="chartExpectativas"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Filtros de Búsqueda y Tabla Interactiva -->
+          <div style="margin-top: 2rem; border-top: 1px solid var(--dark-border); padding-top: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+              <div>
+                <h5 style="font-size: 1.05rem; font-weight: 700;">Explorador de Respuestas Cualitativas y Cuantitativas</h5>
+                <p style="font-size: 0.8rem; color: var(--text-muted);" id="seleccionadosCountLabel">0 seleccionadas</p>
+              </div>
+              <div style="display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center;">
+                <!-- Botón Eliminar Seleccionadas -->
+                <button id="btnEliminarSeleccionadas" class="btn btn-secondary" style="background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.4); color: #f87171; display: none; padding: 0.5rem 0.9rem; font-size: 0.85rem;" onclick="admin.eliminarSeleccionadas()">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                  Eliminar (<span id="btnEliminarCount">0</span>)
+                </button>
+                <input type="text" id="adminSearchInput" class="custom-input" placeholder="Buscar por nombre, texto..." style="width: 200px; padding: 0.5rem 0.85rem; font-size: 0.85rem;" oninput="admin.filtrarTabla()">
+                <select id="adminFilterEtapa" class="custom-input" style="width: 170px; padding: 0.5rem 0.85rem; font-size: 0.85rem;" onchange="admin.filtrarTabla()">
+                  <option value="">Todas las etapas</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-wrapper">
+              <table>
+                <thead>
+                  <tr>
+                    <th style="width: 40px; text-align: center;">
+                      <input type="checkbox" id="selectAllCheckbox" style="cursor: pointer; width: 16px; height: 16px; accent-color: var(--primary);" onchange="admin.toggleSelectAll(this)">
+                    </th>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Nombre</th>
+                    <th>Tiempo</th>
+                    <th>Etapa</th>
+                    <th>NPS</th>
+                    <th>Cumpl.</th>
+                    <th style="text-align: right;">Acciones</th>
+                  </tr>
+                </thead>
+                <tbody id="respuestasTableBody">
+                  <!-- Filas dinámicas -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL DETALLE INDIVIDUAL -->
+  <div class="admin-modal" id="detalleModal" style="z-index: 110;">
+    <div class="admin-window" style="max-width: 650px;">
+      <div class="admin-header">
+        <h4 style="font-size: 1.1rem; font-weight: 700;" id="detalleModalTitle">Detalle de Encuesta</h4>
+        <button onclick="admin.cerrarDetalle()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.5rem; line-height: 1;">&times;</button>
+      </div>
+      <div class="admin-body" id="detalleModalBody" style="line-height: 1.6; font-size: 0.9rem;">
+        <!-- Inyectado dinámicamente -->
+      </div>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
